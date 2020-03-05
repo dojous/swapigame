@@ -22,21 +22,21 @@ const useStyles = makeStyles(theme => ({
 const SelectResources = ({ resources, onHandleSelect }) => {
   const classes = useStyles();
 
-  const [age, setAge] = React.useState("");
+  const [resource, setResource] = React.useState("");
 
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
 
   React.useEffect(() => {
-    onHandleSelect(age);
-  }, [age]);
+    onHandleSelect(resource);
+  }, [resource]);
 
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
   const handleChange = event => {
-    setAge(event.target.value);
+    setResource(event.target.value);
   };
 
   return (
@@ -47,7 +47,7 @@ const SelectResources = ({ resources, onHandleSelect }) => {
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        value={age}
+        value={resource}
         onChange={handleChange}
         labelWidth={labelWidth}
       >
