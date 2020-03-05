@@ -1,5 +1,18 @@
 .App {
   text-align: center;
+  
+  background-color: #282c34;
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  /* color: white; */
+
+
+
 }
 
 .App-logo {
@@ -36,3 +49,39 @@
     transform: rotate(360deg);
   }
 }
+
+div.loader {
+  font-size: 200px;
+}
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+row {
+  width: 100%;
+  
+}
+
+.flex-item {
+  padding: 50px;
+}
+
+
+
+/* .flex-item {
+  background: tomato;
+  padding: 5px;
+  width: 200px;
+  height: 150px;
+  margin: 10px;
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+} */
