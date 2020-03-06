@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 
 import { withRouter } from "react-router-dom";
 
 import GameCard from "./common/gamecard";
-import { API_URL } from "../config";
-import { winnerCard } from "../utils/randomandwin";
 
+import { winnerCard } from "../utils/randomandwin";
+import { useSwapiResources } from "../utils/useSwapiResources";
 import ControlPanel from "./common/controlpanel";
 import Loader from "./spinner";
-import axios from "axios";
 
 import Typography from "@material-ui/core/Typography";
 import Zoom from "@material-ui/core/Zoom";
@@ -23,7 +22,7 @@ const TwoPlayers = ({ resources }) => {
 
   const [selectResource, setSelectResource] = useState("");
 
-  const [loading, setloading] = useState();
+  const [loading, setLoading] = useState();
 
   const handleSelect = useCallback(selectSate => {
     setSelectResource(selectSate);
@@ -37,52 +36,13 @@ const TwoPlayers = ({ resources }) => {
     [score]
   );
 
-  const getSwapiData = () => {
-    let tempResult = [];
-
-    const getAxiosData = async path => {
-      await axios
-        .get(`${API_URL}/${path}`)
-        .then(res => {
-          tempResult = [...tempResult, ...res.data.results];
-
-          if (res.data.next !== null) {
-            const next = res.data.next.match(/\/api\/(.*)/)[1];
-
-            getAxiosData(next);
-          } else {
-            setOrigCollection(tempResult);
-            const axiosResult = [...tempResult];
-
-            const ww = winnerCard(axiosResult, selectResource);
-
-            setCollection(ww);
-
-            const indx = ww.findIndex(v => v.win === true);
-
-            const arr = [...score];
-            arr[indx] = arr[indx] + 1;
-
-            isWinner(arr);
-
-            setloading(false);
-          }
-        })
-
-        .catch(err => {
-          console.log("ERR", err);
-        });
-    };
-
-    getAxiosData(selectResource);
-  };
-
-  useEffect(() => {
-    if (selectResource !== "") {
-      setloading(true);
-      getSwapiData();
-    }
-  }, [selectResource]);
+  useSwapiResources(
+    setOrigCollection,
+    setCollection,
+    setLoading,
+    selectResource,
+    { score, isWinner }
+  );
 
   const checkTheWinner = useCallback(() => {
     const newArray = [...origCollection];
@@ -124,22 +84,17 @@ const TwoPlayers = ({ resources }) => {
                 </div>
               </div>
 
-              {collection.map((item, index) => {
-                return (
-                  <>
-                    <div className="row">
-                      <div className="flex-item">
-                        {" "}
-                        <GameCard
-                          key={new Date().getUTCMilliseconds()}
-                          item={item}
-                          selectResource={selectResource}
-                        />{" "}
-                      </div>
-                    </div>
-                  </>
-                );
-              })}
+              {collection.map((item, index) => (
+                <div className="row" key={index}>
+                  <div className="flex-item">
+                    {" "}
+                    <GameCard
+                      item={item}
+                      selectResource={selectResource}
+                    />{" "}
+                  </div>
+                </div>
+              ))}
 
               <div className="row">
                 <div className="flex-item">
