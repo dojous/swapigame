@@ -1,15 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useCallback } from "react";
-
-import { withRouter } from "react-router-dom";
-
 import GameCard from "./common/gamecard";
-
 import { winnerCard } from "../utils/randomandwin";
 import { useSwapiResources } from "../utils/useSwapiResources";
 import ControlPanel from "./common/controlpanel";
 import Loader from "./spinner";
-
 import Typography from "@material-ui/core/Typography";
 import Zoom from "@material-ui/core/Zoom";
 
@@ -114,4 +109,4 @@ const TwoPlayers = ({ resources }) => {
   );
 };
 
-export default withRouter(TwoPlayers);
+export default TwoPlayers;

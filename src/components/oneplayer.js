@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useCallback } from "react";
 import { useSwapiResources } from "../utils/useSwapiResources";
-
 import GameCard from "./common/gamecard";
-
 import { winnerCard } from "../utils/randomandwin";
-
 import ControlPanel from "./common/controlpanel";
 import Loader from "./spinner";
 

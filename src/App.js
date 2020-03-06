@@ -41,14 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      {resources.length === 0 && (
-        <>
-          <Loader color="black" />
-          <h1>Loading swapi-game data</h1>
-        </>
-      )}
-
-      <Switch>
+          <Switch>
         <Route path="/" exact render={props => <Home />} />
         <Route
           path="/oneplayer"
